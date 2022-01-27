@@ -7,23 +7,26 @@ var level = 0;
 
 // Checks if game is started on keypress
 // so the game doesn't restart at every keypress
-$(document).keypress(function() {
+document.onkeypress = function() {
   if (game_started == false) {
     game_started = true;
     $("#title").text("Level: " + level);
     addToPattern();
   }
-});
+};
 
 // Listens for btn clicks from player, plays animation and sound,
 // then check if clicked color is correct or wrong
-$(".btn").click(function() {
-  var player_clicked_color = $(this).attr("id");
-  player_pattern.push(player_clicked_color);
-  playSound(player_clicked_color);
-  animateButton(player_clicked_color);
-  checkStatus(player_pattern.length - 1);
-});
+var buttons = document.getElementsByClassName("btn");
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].onclick = function(event) {
+    var player_clicked_color = event.target.getAttribute("id");
+    player_pattern.push(player_clicked_color);
+    playSound(player_clicked_color);
+    animateButton(player_clicked_color);
+    checkStatus(player_pattern.length - 1);
+  }
+};
 
 // Compares player patter with generated addToPattern
 // If completed, it adds another pattern after 1 second
@@ -36,11 +39,12 @@ function checkStatus(lvl) {
       }, 1000);
     }
   } else {
-    $("body").addClass("game-over");
-    $("#title").text("Game Over, Press Any Key to Restart");
+    var body_tag = document.getElementsByTagName("body")[0];
+    body_tag.classList.add("game-over");
+    document.getElementById("title").textContent = "Game Over, Press Any Key to Restart";
     playSound("wrong");
     setTimeout(function() {
-      $("body").removeClass("game-over");
+      body_tag.classList.remove("game-over");
     }, 300);
 
     resetGame();
@@ -53,10 +57,11 @@ function checkStatus(lvl) {
 function addToPattern() {
   player_pattern = [];
   level++;
-  $("#title").text("Level: " + level);
+  document.getElementById("title").textContent = "Level: " + level;
   var random_color = button_colors[Math.floor(Math.random() * 4)];
   generated_pattern.push(random_color);
-  $("#" + random_color).fadeIn(100).fadeOut(100).fadeIn(100);
+  animateButton(random_color);
+
   playSound(random_color);
 };
 
@@ -68,9 +73,9 @@ function playSound(mp3_name) {
 
 // Animates buttons by appying css class then removing it
 function animateButton(clicked_color) {
-  $("#" + clicked_color).addClass("pressed");
+  document.getElementById(clicked_color).classList.add("pressed");
   setTimeout(function() {
-    $("#" + clicked_color).removeClass("pressed");
+    document.getElementById(clicked_color).classList.remove("pressed");
   }, 100);
 };
 
