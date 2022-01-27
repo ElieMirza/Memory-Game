@@ -60,8 +60,7 @@ function addToPattern() {
   document.getElementById("title").textContent = "Level: " + level;
   var random_color = button_colors[Math.floor(Math.random() * 4)];
   generated_pattern.push(random_color);
-  animateButton(random_color);
-
+  flickerButton(random_color)
   playSound(random_color);
 };
 
@@ -69,6 +68,13 @@ function addToPattern() {
 function playSound(mp3_name) {
   var audio = new Audio("sounds/" + mp3_name + ".mp3");
   audio.play();
+};
+
+// Flickers the button instead of fadeIn fadeOut
+function flickerButton(random_color) {
+  var random_color_id = document.getElementById(random_color);
+  random_color_id.style.opacity = 0;
+  setTimeout(function(){random_color_id.style.opacity = 1;}, 150);
 };
 
 // Animates buttons by appying css class then removing it
