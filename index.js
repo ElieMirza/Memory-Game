@@ -74,7 +74,7 @@ function animateButton(clicked_color) {
   }, 100);
 };
 
-// This function resets the game
+// Resets the game
 function resetGame() {
   game_started = false;
   level = 0;

@@ -74,7 +74,9 @@ function playSound(mp3_name) {
 function flickerButton(random_color) {
   var random_color_id = document.getElementById(random_color);
   random_color_id.style.opacity = 0;
-  setTimeout(function(){random_color_id.style.opacity = 1;}, 150);
+  setTimeout(function() {
+    random_color_id.style.opacity = 1;
+  }, 150);
 };
 
 // Animates buttons by appying css class then removing it
@@ -85,7 +87,7 @@ function animateButton(clicked_color) {
   }, 100);
 };
 
-// This function resets the game
+// Resets the game
 function resetGame() {
   game_started = false;
   level = 0;
