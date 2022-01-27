@@ -34,9 +34,15 @@ function playSound(mp3_name) {
   audio.play();
 };
 
-function animate_button(clicked_color) {
+function animateButton(clicked_color) {
   $("#" + clicked_color).addClass("pressed");
   setTimeout(function() {
     $("#" + clicked_color).removeClass("pressed");
   }, 100);
+};
+
+function resetGame() {
+  game_started = false;
+  level = 0;
+  generated_pattern = [];
 };
