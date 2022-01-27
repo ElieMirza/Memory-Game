@@ -5,6 +5,7 @@ var generated_pattern = [];
 var player_pattern = [];
 var level = 0;
 
+// Checks if game is started
 $(document).keypress(function() {
   if (game_started == false) {
     game_started = true;
@@ -18,6 +19,7 @@ $(".btn").click(function() {
   player_pattern.push(player_clicked_color);
   playSound(player_clicked_color);
   animateButton(player_clicked_color);
+  checkStatus(player_pattern.length - 1);
 });
 
 function addToPattern() {
@@ -43,8 +45,8 @@ function animateButton(clicked_color) {
 };
 
 function checkStatus(lvl) {
-  if (generated_pattern[lvl] == player_pattern[lvl]) {
-    if (player_pattern.length == generated_pattern.length) {
+  if (generated_pattern[lvl] === player_pattern[lvl]) {
+    if (player_pattern.length === generated_pattern.length) {
       setTimeout(function() {
         addToPattern();
       }, 1000);
