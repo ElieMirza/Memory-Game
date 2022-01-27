@@ -1,9 +1,9 @@
+var game_started = false;
+
 var button_colors = ["red", "blue", "green", "yellow"];
 var generated_pattern = [];
 var player_pattern = [];
 var level = 0;
-
-var game_started = false;
 
 $(document).keypress(function() {
   if (game_started == false) {
@@ -17,6 +17,7 @@ $(".btn").click(function() {
   var player_clicked_color = $(this).attr("id");
   player_pattern.push(player_clicked_color);
   playSound(player_clicked_color);
+  animate_button(player_clicked_color);
 });
 
 function addToPattern() {
@@ -29,4 +30,11 @@ function addToPattern() {
 function playSound(mp3_name) {
   var audio = new Audio("sounds/" + mp3_name + ".mp3");
   audio.play();
+};
+
+function animate_button(clicked_color) {
+  $("#" + clicked_color).addClass("pressed");
+  setTimeout(function() {
+    $("#" + clicked_color).removeClass("pressed");
+  }, 100);
 };
