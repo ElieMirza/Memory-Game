@@ -42,6 +42,25 @@ function animateButton(clicked_color) {
   }, 100);
 };
 
+function checkStatus(lvl) {
+  if (generated_pattern[lvl] == player_pattern[lvl]) {
+    if (player_pattern.length == generated_pattern.length) {
+      setTimeout(function() {
+        addToPattern();
+      }, 1000);
+    }
+  } else {
+    $("body").addClass("game-over");
+    $("#title").text("Game Over, Press Any Key to Restart");
+    playSound("wrong");
+    setTimeout(function() {
+      $("body").removeClass("game-over");
+    }, 300);
+
+    resetGame();
+  }
+}
+
 function resetGame() {
   game_started = false;
   level = 0;
